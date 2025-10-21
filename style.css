@@ -1,0 +1,320 @@
+*{
+    box-sizing: border-box;
+    font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+
+body{
+    background:
+        radial-gradient(800px 520px at 12% 12%, #dfeaff 0%, transparent 60%),
+        radial-gradient(800px 520px at 88% 88%, #f4e6ff 0%, transparent 58%),
+        linear-gradient(120deg, #f7f8fc, #ffffff);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    color: #0f1226;
+}
+
+
+h1{
+    position: relative;
+    margin: 0 0 8px;
+    font-weight: 800;
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+    letter-spacing: .2px;
+}
+h1 button{
+    position: relative;
+    right: 0;
+    transform: translate(120%,-50%);
+    z-index: 2;
+}
+
+/* ปุ่มโทนสุภาพ */
+.btn{
+    background: #ffffff;
+    border: 1px solid #d8deea;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-top: 20px;
+    padding: 10px 16px;
+    outline: none;
+    cursor: pointer;
+    color: #0f1226;
+    transition: background .25s ease, box-shadow .25s ease;
+    box-shadow: 0 4px 12px rgba(15,18,38,.08);
+}
+.btn:hover{
+    background: #f4f6ff;
+    box-shadow: 0 6px 16px rgba(15,18,38,.10);
+}
+.btn:active{
+    background: #e8ebff;
+    box-shadow: 0 2px 6px rgba(15,18,38,.12);
+}
+.btn-small{
+    font-size: 12px;
+    padding: 6px 10px;
+}
+.clear{
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    background: #ff6b6b;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255,107,107,.25);
+    transition: background .25s ease, box-shadow .25s ease;
+}
+.clear:hover{
+    background: #ff4c4c;
+    box-shadow: 0 6px 14px rgba(255,107,107,.3);
+}
+
+/* เวทีการ์ดคงขนาดเดิม เพิ่มแค่ความยืดหยุ่น */
+.cards{
+    perspective: 1000px;
+    position: relative;
+    width: 500px;
+    height: 300px;
+    max-width: 100%;
+}
+
+/* คงพฤติกรรม/ค่าหมุนเดิมทั้งหมด */
+.card{
+    position: absolute;
+    font-size: 1.5em;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateX(50%) rotateY(-10deg);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.card.active{
+    opacity: 1;
+    transform: translateX(0) rotateY(0);
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* ปรับลุคการ์ดให้คลีนขึ้น (ไม่เปลี่ยนโครง/แกน) */
+.inner-card{
+    box-shadow: 0 10px 28px rgba(15,18,38,.16);
+    border-radius: 12px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d ;
+    transition: transform 0.4s ease, box-shadow .3s ease;
+    background: rgba(255,255,255,.9);
+    border: 1px solid #e7ebf5;
+}
+.inner-card:hover{
+    box-shadow: 0 14px 34px rgba(15,18,38,.20);
+}
+
+.inner-card-font, .inner-card-back{
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    padding: 22px;
+    border-radius: 12px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* (ห้ามเปลี่ยน) พลิกแกน X เดิม */
+.card.show-answer .inner-card{
+    transform: rotateX(180deg);
+}
+.inner-card-font{
+    transform: rotateX(0deg);
+    z-index: 2;
+}
+.inner-card-back{
+    transform: rotateX(180deg);
+}
+
+/* ป้ายบอก Flip แบบจาง ๆ */
+.inner-card-font::after , .inner-card-back::after{
+    content: "Flip";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-weight: 700;
+    font-size: 12px;
+    color: #9aa4b4;
+    background: #ffffffcc;
+    border: 1px solid #ffffff;
+    border-radius: 999px;
+    padding: 2px 8px;
+    box-shadow: 0 2px 8px rgba(15,18,38,.08);
+}
+
+/* แถบนำทางเรียบ ๆ */
+.nevigation{
+    display: flex;
+    margin: 8px 20px 0;
+    align-items: center;
+    gap: 12px;
+}
+.nevigation .nav-button{
+    border: 1px solid #e2e7f2;
+    background: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 8px;
+    padding: 8px 12px;
+    box-shadow: 0 4px 10px rgba(15,18,38,.06);
+    transition: background .25s ease, box-shadow .25s ease;
+}
+.nevigation .nav-button:hover{
+    background: #f5f7ff;
+    box-shadow: 0 6px 14px rgba(15,18,38,.1);
+}
+.nevigation .p{
+    margin: 0 25px;
+}
+
+/* ปุ่มไอคอนเล็ก */
+.btn-hidden{
+    border: none;
+    background: transparent;
+    color: #666;
+    cursor: pointer;
+    transition: color .2s ease;
+}
+.btn-hidden:hover{
+    color: #000;
+}
+
+/* ฟอร์มเพิ่มการ์ด: สะอาด สว่าง ไม่เวอร์ */
+.add-container{
+    background-color: #f7f8fc;
+    border-top: 2px solid #eef1f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    opacity: 0;
+    z-index: -1;
+    transition: 0.3s ease;
+}
+.add-container.show{
+    opacity: 1;
+    z-index: 2;
+}
+.add-container h3{
+    margin: 10px 0;
+    font-weight: 800;
+    font-size: 1.05rem;
+}
+.add-container label{
+    display: block;
+    margin: 20px 0 10px;
+    color: #6b7280;
+    font-weight: 700;
+    letter-spacing: .2px;
+}
+.form-group textarea{
+    border: 1px solid #dde3ef;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 12px;
+    min-width: clamp(260px, 70vw, 500px);
+    min-height: 110px;
+    outline: none;
+    background: #fff;
+    box-shadow: inset 0 1px 0 rgba(15,18,38,.04);
+    transition: border .2s ease, box-shadow .2s ease;
+}
+.form-group textarea:focus{
+    border-color: #b9c6ff;
+    box-shadow: 0 0 0 5px rgba(105,125,255,.18);
+}
+
+/* ทิศทางเลื่อนซ้าย (ค่าหมุนเดิม ไม่เปลี่ยน) */
+.card.left {
+    transform: translate(-50%) rotateY(10deg);
+}
+
+/* เล็กน้อยสำหรับจอเล็ก */
+@media (max-width: 640px){
+    .cards{ width: 92vw; height: 64vh; }
+    h1{ font-size: 1.25rem; }
+}
+/* ---------- โหมดมืด/สว่าง ---------- */
+body.dark-mode {
+    background:
+        radial-gradient(800px 520px at 12% 12%, #1c2435 0%, transparent 60%),
+        radial-gradient(800px 520px at 88% 88%, #262c40 0%, transparent 58%),
+        linear-gradient(120deg, #12141d, #1a1c28);
+    color: #f2f4ff;
+}
+
+/* ปุ่มโหมด */
+#mode-toggle{
+    background:#fff;
+    border:1px solid #d8deea;
+    border-radius:8px;
+    padding:6px 12px;
+    cursor:pointer;
+    box-shadow:0 3px 10px rgba(15,18,38,.08);
+    transition:background .25s ease, box-shadow .25s ease;
+}
+#mode-toggle:hover{
+    background:#f6f8ff;
+    box-shadow:0 5px 12px rgba(15,18,38,.1);
+}
+
+/* โหมดมืด – ปรับปุ่มให้เข้ากัน */
+body.dark-mode #mode-toggle{
+    background:#2d3245;
+    border-color:#454b64;
+    color:#f2f4ff;
+}
+body.dark-mode #mode-toggle:hover{
+    background:#3a4057;
+}
+
+/* โหมดมืด – การ์ดและพื้นหลังส่วนอื่น */
+body.dark-mode .inner-card,
+body.dark-mode .inner-card-font,
+body.dark-mode .inner-card-back{
+    background-color:#22283a;
+    color:#f2f4ff;
+    border-color:#333a52;
+}
+body.dark-mode .btn{
+    background:linear-gradient(135deg,#5e58d8,#358ec9);
+    color:#fff;
+    border:none;
+}
+body.dark-mode .add-container{
+    background-color:#1c1f2e;
+    border-top:2px solid #2a2e44;
+}
+body.dark-mode .form-group textarea{
+    background:#2c3044;
+    color:#fff;
+    border:1px solid #3c415a;
+}
